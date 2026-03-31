@@ -1,0 +1,15 @@
+{% if page.paginator.num_pages > 1 %}
+<div class="pagination">
+<span class="step-links">
+{% if page.has_previous %}
+<a href="?{% if search %}search={{search}}&{% endif %}page={{ page.previous_page_number }}">Пред.</a>
+{% endif %}
+<span class="current">
+Страница {{ page.number }} из {{ page.paginator.num_pages }}.
+</span>
+{% if page.has_next %}
+<a href="?{% if search %}search={{search}}&{% endif %}page={{ page.next_page_number }}">След.</a>
+{% endif %}
+</span>
+</div>
+{% endif %}

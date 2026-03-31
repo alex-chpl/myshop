@@ -1,0 +1,17 @@
+{% extends "shop/base.html" %}
+{% load static %}
+{% block title %}
+{% if category %}{{ category.name }}{% else %}Products{% endif %}
+{% endblock %}
+{% block content %}
+<div id="main" class="product-list">
+<h1>{% if orders %}{{ 'Заказы' }}{% else %}''{% endif %}</h1>
+<div class="itemlist" style="display:flex;flex-wrap:wrap">
+<ul>
+{% for order  in orders %}
+<li>{{ order.last_name }} {{ order.get_total_cost }}</li>
+{% endfor %}
+</ul>
+</div>
+</div>
+{% endblock %}

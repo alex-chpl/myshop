@@ -1,0 +1,53 @@
+{% extends "shop/base.html" %}
+{% load static %}
+{% block title %}
+{% if category %}{{ category.name }}{% else %}Products{% endif %}
+{% endblock %}
+{% block content %}
+<div id="sidebar">
+<h3>Категории</h3>
+<ul>
+<li {% if not category %}class="selected"{% endif %}>
+<a href="{% url "shop:product_list" %}">Все</a>
+</li>
+{% for c in categories %}
+<li {% if category.slug == c.slug %}class="selected"{% endif %}>
+<a href="{{ c.get_absolute_url }}">{{ c.name }}</a>
+</li>
+{% endfor %}
+</ul>
+</div>
+<div id="main" class="product-list">
+<h1>{% if category %}{{ category.name }}{% else %}{% if search %}Найдено{% else %}Все категории{% endif %}{% endif %}</h1>
+<div class="itemlist" style="display:flex;flex-wrap:wrap">
+{% if products %}
+{% for product in products %}
+<div class="item" style="border:1px solid silver">
+<a href="{{ product.get_absolute_url }}">
+<img src="{% if product.barcode %}{{ product.get_image }}{% else %}{% static "img/no_image.png" %}{% endif %}">
+</a><div>
+<a href="{{ product.get_absolute_url }}">{{ product.name }} ({{product.incode}})</a>
+
+<span>{{ product.price}} ₽</span>
+     <form action="{% url "cart:cart_add" product.id %}" method="post">
+        <input class="iquant" type="number" value="1" name="quantity">
+        {% csrf_token %}
+        <input type="submit" value="Купить">
+     </form>
+
+</div>
+</div>
+{% endfor %}
+{% include "pagination.html" with page=products %}
+{% else %} 
+<ul>
+{% for cat in cats %}
+<li class="sublist">
+<a href="{{ cat.get_absolute_url }}" >{{cat.name}}</a>
+</li>
+{% endfor %}
+</ul>
+{% endif %}
+</div>
+</div>
+{% endblock %}

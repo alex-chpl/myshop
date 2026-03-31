@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>{% block title %}Диво-м магазин{% endblock %}</title>
+<link href="{% static "css/base.css" %}" rel="stylesheet">
+</head>
+<body>
+<div id="header">
+<a href="/" class="logo"><img src="{% static 'img/logo.png' %}"></a>
+<form class="search" action="">
+<input id="search" name="search" value="{{search}}" placeholder="Поиск">
+<input type="submit" value="...">
+</form>
+<div class="cart">
+{% with total_items=cart|length %}
+{% if total_items > 0 %}
+<img src="{% static 'img/cart.svg' %}" >
+<a href="{% url "cart:cart_detail" %}">
+{{ total_items }} поз. {{ cart.get_total_price }} руб.
+</a>
+{% elif not order %}
+Корзина пуста.
+{% endif %}
+{% endwith %}
+</div>
+</div>
+
+<div id="subheader">
+<a href="{% url 'shop:product_list' %}" >Главная</a>
+<a href="{% url 'orders:order_list' %}" >Заявки</a>
+</div>
+
+<div id="content">
+{% block content %}
+{% endblock %}
+</div>
+<footer>@alex
+{% block footer %}
+{% endblock %}
+</body>
+</html>
