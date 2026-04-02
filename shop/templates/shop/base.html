@@ -21,6 +21,7 @@
 {{ total_items }} поз. {{ cart.get_total_price }} руб.
 </a>
 {% elif not order %}
+<img src="{% static 'img/cart_empty.svg' %}" >
 Корзина пуста.
 {% endif %}
 {% endwith %}
