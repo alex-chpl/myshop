@@ -97,7 +97,7 @@ def import_categ(request,fcateg):
 			if cnt > 0:
 				try:
 					parent_cat = cats.get(id=int(rw[0],36))
-					prd.append( Product(id=int(rw[1]),category=parent_cat, incode=rw[1],name = rw[2],slug = slugify(rw[2]),
+					prd.append( Product(id=int(rw[1]),category=parent_cat, incode=rw[1],name = rw[2],slug = slugify(rw[2]+'-'+rw[1]),
 						barcode=rw[4],articul=rw[3],description='',rest=int(rw[5]),prop=rw[6],upak=rw[7],
 						price=float(rw[10]),cena=rw[8],cenof=rw[9],cenoc=rw[10]))
 					#prd.save()
