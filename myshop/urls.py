@@ -23,6 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('cart/', include('cart.urls', namespace='cart')),
     path('orders/', include('orders.urls', namespace='orders')),
+    path('accounts/', include('django.contrib.auth.urls')), # Вход, выход, смена пароля
     path('', include('shop.urls', namespace='shop')),
 ]
 

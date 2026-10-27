@@ -1,12 +1,26 @@
 from django.db.models import Q
 from django.http import HttpResponse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404,redirect
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login
 from django.core.paginator import Paginator
 from .models import Category, Product
 from cart.forms import CartAddProductForm
 from myshop.translit import *
 import csv
 #import re
+
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request/POST)
+        if form.is_valid():
+            user = form.save()
+            login( request, user)
+            return redirect('/')
+    else:
+        form = UserCreateForm()
+    return render(request, 'registration/register.html',{'form': form})
+
 
 def product_list(request, category_slug=None):
     category = None
